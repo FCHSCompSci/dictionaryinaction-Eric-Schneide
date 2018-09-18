@@ -1,21 +1,26 @@
 #Eric Schneider
 #dictionaries 9/17/18-
 import random
+import time
 
-strength= random.choice(range(5,21))
-magic=random.choice(range(5,21))
-dexterity=random.choice(range(5,21))
-hp=dexterity*3
-def build_player(xp, level, strength,magic, dexterity, hp):
+name= input('Please enter the name you wish to be called by.')
+
+#Dictionary
+def build_player(name, xp, level, strength, magic, dexterity, hp):
+
+    #stat inputs
     player={
+        'name':name,
         'xp':0,
         'level':1,
-        'strenght':strength,
-        'magic':magic,
-        'dexterity':dexterity,
-        'hp':hp,
+        'strength':random.choice(range(5,13)),
+        'magic':random.choice(range(5,13)),
+        'dexterity':random.choice(range(5,13)),
+        'hp':dexterity*3,
         }
-print("Here is your character.")
-print(build_player())
+    return ("Here is your character.")
+    return player
 
+build_player('name', 'xp', 'level', 'strength', 'magic', 'dexterity', 'hp')
+time.sleep(5)
 
