@@ -4,11 +4,12 @@ import random
 import time
 
 #Baseline stats
+xp=0
 strengh=random.choice(range(5,13))
 magics=random.choice(range(5,13))
 dexteriti=random.choice(range(5,13))
 defence=random.choice(range(5,13))
-hp= dexteriti*3
+hp=dexteriti*3
 
 
 #Dictionary
@@ -17,12 +18,12 @@ def view_player(Name, Xp, Level, Strength, Magic, Dexterity, Hp, Defense):
     #stat inputs
     player={
         'Name':names,
-        'Xp':0,
+        'Xp':xp,
         'Level':1,
         'Strength':strengh,
         'Magic':magics,
         'Dexterity':dexteriti,
-        'Hp':dexteriti*3,
+        'Hp':hp,
         'Defense':defence,
         }
     return player
@@ -47,24 +48,13 @@ def encounter():
                     print('You do %s'%damage +' points of damage.')
                     ork_hp-=damage
 
-                    print('Now the ork will attack')
-                    orkdamage=random.choice(range(1-6))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage +' damage')
-                    time.sleep(5)
-                    print('You have %s'% hp %'%s points of health remaining')
+                    monster_attack()
+
                 else:
                     print('your attack misses')
                     time.sleep(5)
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage +' damage')
-                    time.sleep(5)
-                    print('You have %s'% hp +' points of health remaining')
+                    monster_attack()
                     
     #Spell:Flair Bolt            
             elif spell=='f':
@@ -75,25 +65,13 @@ def encounter():
                     print('You do %s'%damage +' points of damage')
                     ork_hp-=damage
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage +' damage')
-                    time.sleep(5)
-                    print('You have %s'% hp +' points of health remaining')
+                    monster_attack()
                     
                 else:
                     print('your attack misses')
                     time.sleep(5)
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage +' damage')
-                    time.sleep(5)
-                    print('You have %s'% hp %'%s points of health remaining')
+                    monster_attack()
                     
     #Spell:Quicksand         
             elif spell=='q':
@@ -110,13 +88,7 @@ def encounter():
                     print('your attack misses')
                     time.sleep(5)
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage %'%s damage')
-                    time.sleep(5)
-                    print('You have %s'% hp %'%s points of health remaining')
+                    monter_attack()
                     
     #Spell:Magic Missle   
             elif spell=='m':
@@ -128,25 +100,14 @@ def encounter():
                     ork_hp-=damage*2
                     time.sleep(5)
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage %'%s damage')
-                    time.sleep(5)
-                    print('You have %s'% hp %'%s points of health remaining')
+                    monster_attack()
                     
                 else:
                     print('your attack misses')
                     time.sleep(5)
 
-                    print('Now the ork will attack')
-                    ork_damage=random.choice(range(1-10))
-                    hp-=ork_damage
-                    time.sleep(5)
-                    print('You take %s'% ork_damage %'%s damage')
-                    time.sleep(5)
-                    print('You have %s'% hp %'%s points of health remaining')
+                
+                    monster_attack()
                     
             else:
                 print('Please enter a correct input.')
@@ -154,25 +115,33 @@ def encounter():
     #Melee path
         elif attack=='s':
             print('You brandish your sword.')
+            time.sleep(3)
             d10=random.choice(range(1,11))
             damage=strengh+d10
             print('you do %s'%damage+' points of damage')
             ork_hp-=damage
             time.sleep(5)
 
-            print('Now the ork will attack')
-            ork_damage=random.choice(range(1-10))
-            hp-=ork_damage
-            time.sleep(5)
-            print('You take %s'% ork_damage %'%s damage')
-            time.sleep(5)
-            print('You have %s'% hp %'%s points of health remaining')
-                          
+
+            monster_attack()
+            
         else:
             print('Please enter a correct input')
             
     return "you Win"
 
+
+def monster_attack():
+    print('Now the ork will attack')
+    ork_damage=7-defence/2
+    time.sleep(5)
+    print('You take %s'% ork_damage +' damage')
+    player_hp-=ork_damage
+    time.sleep(5)
+    print('You have %s'% hp %'%s points of health remaining')
+
+#player_hp=view_player[hp]
+ 
 #Start up screen
 names= input('Please enter the name you wish to be called by.')
 #time.sleep(5)
@@ -204,8 +173,17 @@ while replay.upper!='N':
 
     encounter()
     print('you see 200 xp rise from the monsters dead corpse. without thinking of how bad an idea it is though, you take it.')
-    Xp+=200
-    print(view_player('name', 'xp', 'level', 'strengh', 'magics', 'dexteriti', 'hp', 'defence'))
-    time.sleep(5)
+    xp+=200
+    if xp>100:
+        print('you leveled up')
+        strengh+=random.choice(range(5,13))
+        magics+=random.choice(range(5,13))
+        dexteriti+=random.choice(range(5,13))
+        defence+=random.choice(range(5,13))
+        hp=dexteriti*3
+        print('Your stats increase')
+        print(view_player('name', 'xp', 'level', 'strengh', 'magics', 'dexteriti', 'hp', 'defence'))
+    else:
+        time.sleep(5)
     replay= input('Do you want to continue? [Y] or [N]')
     
